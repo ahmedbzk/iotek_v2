@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60">
+  <defs>
+    <pattern id="lines" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="60" x2="60" y2="0" stroke="#e8edf2" stroke-width="0.6" opacity="0.45"/>
+    </pattern>
+  </defs>
+  <rect width="60" height="60" fill="url(#lines)"/>
+</svg>

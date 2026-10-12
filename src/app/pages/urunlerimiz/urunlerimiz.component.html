@@ -1,0 +1,57 @@
+<app-page-banner
+  title="Ürünlerimiz"
+  subtitle="Endüstriyel Standartlarda İleri Teknoloji Donanımları"
+  bgImage="assets/banner.jpg">
+</app-page-banner>
+
+<section id="products-section" class="section products-section bg-accent">
+  <div class="container">
+    <div class="products-layout">
+      <!-- Sidebar Tabs -->
+      <div class="products-sidebar shadow-sm">
+        <h3 class="sidebar-title">Ürün Kategorileri</h3>
+        <ul class="category-tabs">
+          @for (cat of categories; track cat.id) {
+            <li class="tab-item" [class.active]="activeCategoryId === cat.id">
+              <button (click)="setActive(cat.id)">
+                <span>{{ cat.name }}</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Main Content -->
+      <div class="products-content">
+        @for (cat of categories; track cat.id) {
+          @if (activeCategoryId === cat.id) {
+            <div class="category-view animate-fade-up">
+              <div class="category-header">
+                <h2 class="h2">{{ cat.name }}</h2>
+                <div class="divider"></div>
+              </div>
+              
+              <div class="products-grid">
+                @for (prod of cat.products; track prod.name; let i = $index) {
+                  <div class="product-card shadow-sm animate-fade-up" [style.animation-delay]="(i * 0.1) + 's'">
+                    <div class="product-image">
+                      <img [src]="prod.image" [alt]="prod.name">
+                    </div>
+                    <div class="product-info">
+                      <h4 class="h4">{{ prod.name }}</h4>
+                      <p class="text-muted">{{ prod.desc }}</p>
+                      <button class="btn btn-outline-primary btn-sm mt-3 w-full" style="font-weight: 600;">Detayları İncele</button>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

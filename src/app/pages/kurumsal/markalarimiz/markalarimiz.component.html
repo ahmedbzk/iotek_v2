@@ -1,0 +1,61 @@
+<app-page-banner
+  title="Markalarımız"
+  subtitle="Uzmanlık Alanlarımızı Çeşitlendirerek Büyüyoruz"
+  bgImage="assets/banner.jpg">
+</app-page-banner>
+
+<!-- Section 2: Intro -->
+<section class="section text-center">
+  <div class="container">
+    <span class="badge mb-2">Grup Şirketlerimiz</span>
+    <h2 class="h2 mb-4">Her Biri Kendi Alanında Lider</h2>
+    <p class="text-muted" style="max-width: 800px; margin: 0 auto; font-size: 1.1rem;">
+      Iotek Teknoloji çatısı altında faaliyet gösteren markalarımız, farklı sektörlerin spesifik ihtiyaçlarına
+      odaklanarak derinlemesine uzmanlık ve yüksek mühendislik çözümleri sunar. Sinerjimiz gücümüzdür.
+    </p>
+  </div>
+</section>
+
+<!-- Section 3, 4, 5: Brands -->
+<section class="brands-showcase">
+  @for (brand of brands; track brand.name; let i = $index) {
+    <div class="brand-row section" [class.bg-light]="i % 2 !== 0">
+      <div class="container">
+        <div class="brand-grid" [class.reverse]="brand.reverse">
+          <div class="brand-content animate-fade-up">
+            <h3 class="h3 mb-3">{{ brand.name }}</h3>
+            <p class="mb-4 text-muted">{{ brand.desc }}</p>
+            <ul class="feature-list mb-4">
+              @for (feat of brand.features; track feat) {
+                <li>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>{{ feat }}</span>
+                </li>
+              }
+            </ul>
+            <a routerLink="/iletisim" class="btn btn-outline-primary">Detaylı Bilgi Al</a>
+          </div>
+          <div class="brand-image animate-fade-up" style="animation-delay: 0.2s">
+            <div class="image-showcase">
+              <img [src]="brand.image" [alt]="brand.name" class="main-img shadow-lg">
+              <div class="accent-box"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</section>
+
+<!-- Section 6: CTA -->
+<section class="cta-section section text-center" style="background-color: var(--color-primary); color: #fff;">
+  <div class="container">
+    <h2 class="h2 mb-4" style="color: #fff;">Ekosistemimizin Bir Parçası Olun</h2>
+    <p class="mb-5" style="max-width: 600px; margin: 0 auto; font-size: 1.1rem; opacity: 0.9;">
+      Tüm markalarımızın sunduğu entegre çözümlerle işinizi geleceğe taşımak için bizimle iletişime geçin.
+    </p>
+    <a routerLink="/iletisim" class="btn" style="background: #fff; color: var(--color-primary); padding: 1rem 2.5rem; font-weight: 600; font-size: 1.1rem;">İletişime Geç</a>
+  </div>
+</section>

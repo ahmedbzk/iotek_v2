@@ -1,0 +1,87 @@
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+.brand-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  
+  @media (min-width: 992px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    
+    &.reverse {
+      .brand-content {
+        order: 2;
+      }
+      .brand-image {
+        order: 1;
+      }
+    }
+  }
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    color: var(--color-heading);
+    
+    svg {
+      margin-right: 0.75rem;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.image-showcase {
+  position: relative;
+  padding: 1rem;
+  
+  .main-img {
+    position: relative;
+    z-index: 2;
+    border-radius: 12px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: contain; /* Changed from cover to contain for logos */
+    background: #fff; /* Optional: adds a white background inside the image container if logo has transparent background */
+    padding: 2rem; /* Add some padding so the logo breathes nicely inside the box */
+  }
+  
+  .accent-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 50%;
+    background: var(--color-primary);
+    opacity: 0.1;
+    border-radius: 12px;
+    z-index: 1;
+    transform: translate(-10px, -10px);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60%;
+    height: 60%;
+    border: 2px dashed var(--color-primary);
+    border-radius: 12px;
+    z-index: 1;
+    opacity: 0.3;
+    transform: translate(10px, 10px);
+  }
+}

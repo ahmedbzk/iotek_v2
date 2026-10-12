@@ -1,0 +1,354 @@
+@use 'sass:math';
+
+// ── Variables ─────────────────────────────────────────────────────────────────
+$slide-height:     700px;
+$transition-dur:   700ms;
+$overlay-color:    rgba(13, 25, 45, 0.52);
+$accent:           #00ABCD;
+$secondary:        #184341;
+
+// ── Host ──────────────────────────────────────────────────────────────────────
+:host {
+  display: block;
+  position: relative;
+}
+
+// ── Slider Container ──────────────────────────────────────────────────────────
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: $slide-height;
+  overflow: hidden;
+  background-color: $secondary;
+
+  // ── Track ────────────────────────────────────────────────────────────────
+  &__track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  // ── Slide ─────────────────────────────────────────────────────────────────
+  &__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity $transition-dur cubic-bezier(0.4, 0, 0.2, 1),
+      visibility $transition-dur;
+    z-index: 1;
+
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2;
+
+      // Animate content in when slide becomes active
+      .animate-el {
+        &:nth-child(1) { animation: heroFadeUp 0.7s 0.2s both; }
+        &:nth-child(2) { animation: heroFadeUp 0.7s 0.35s both; }
+        &:nth-child(3) { animation: heroFadeUp 0.7s 0.5s both; }
+        &:nth-child(4) { animation: heroFadeUp 0.7s 0.65s both; }
+      }
+    }
+  }
+
+  // ── Background Image ──────────────────────────────────────────────────────
+  &__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.06);
+    transition: transform ($transition-dur * 4) ease;
+
+    .is-active & {
+      transform: scale(1);
+    }
+  }
+
+  // ── Overlay ───────────────────────────────────────────────────────────────
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(13, 25, 45, 0.75) 0%,
+      rgba(13, 25, 45, 0.45) 50%,
+      rgba(13, 25, 45, 0.20) 100%
+    );
+    z-index: 1;
+  }
+
+  // ── Content ───────────────────────────────────────────────────────────────
+  &__content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__inner {
+    max-width: 66%;
+    padding-top: 5%;
+  }
+
+  // ── Eyebrow ───────────────────────────────────────────────────────────────
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: $accent;
+    margin-bottom: 1rem;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 2px;
+      background-color: $accent;
+      border-radius: 1px;
+    }
+  }
+
+  // ── Title ─────────────────────────────────────────────────────────────────
+  &__title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(28px, 4.5vw, 52px);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.18em;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  }
+
+  // ── Description ───────────────────────────────────────────────────────────
+  &__desc {
+    font-size: clamp(15px, 1.5vw, 17px);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7em;
+    margin-bottom: 2rem;
+    max-width: 520px;
+  }
+
+  // ── Actions ───────────────────────────────────────────────────────────────
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  // ── Progress Bar ──────────────────────────────────────────────────────────
+  &__progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: rgba(255,255,255,0.15);
+    z-index: 10;
+  }
+
+  &__progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, $accent, lighten($accent, 15%));
+    border-radius: 0 2px 2px 0;
+    transition: width 50ms linear;
+  }
+
+  // ── Arrow Navigation ──────────────────────────────────────────────────────
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    margin-top: -5%;
+
+    &:hover {
+      background: $accent;
+      border-color: $accent;
+      box-shadow: 0 0 0 6px rgba($accent, 0.2);
+    }
+
+    &--prev { left: 2rem; }
+    &--next { right: 2rem; }
+  }
+
+  // ── Dot Indicators ────────────────────────────────────────────────────────
+  &__dots {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  &__dot {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+
+    &:hover { transform: scale(1.2); }
+
+    &.is-active {
+      .hero-slider__dot-inner {
+        width: 28px;
+        background-color: $accent;
+      }
+    }
+  }
+
+  &__dot-inner {
+    display: block;
+    width: 8px;
+    height: 4px;
+    border-radius: 3px;
+    background-color: rgba(255,255,255,0.5);
+    transition: all 0.3s ease;
+  }
+
+  // ── Counter ───────────────────────────────────────────────────────────────
+  &__counter {
+    position: absolute;
+    bottom: 2.4rem;
+    right: 2.5rem;
+    z-index: 10;
+    display: flex;
+    align-items: baseline;
+    gap: 0.2rem;
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(255,255,255,0.7);
+  }
+
+  &__counter-current {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  &__counter-sep {
+    font-size: 14px;
+    margin: 0 2px;
+  }
+
+  &__counter-total {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  // ── Scroll Hint ───────────────────────────────────────────────────────────
+  &__scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 2.5rem;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__scroll-line {
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+    animation: scrollPulse 1.8s ease-in-out infinite;
+  }
+
+  &__scroll-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.5);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────────────────────
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50%       { opacity: 0.4; transform: scaleY(0.7); }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 991px) {
+  .hero-slider {
+    height: 580px;
+
+    &__inner { max-width: 80%; }
+
+    &__arrow {
+      width: 44px;
+      height: 44px;
+      font-size: 14px;
+      &--prev { left: 1rem; }
+      &--next { right: 1rem; }
+    }
+
+    &__scroll-hint { display: none; }
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-slider {
+    height: 520px;
+
+    &__inner {
+      max-width: 100%;
+      padding-top: 0;
+    }
+
+    &__actions {
+      flex-direction: column;
+      .btn { width: 100%; justify-content: center; }
+    }
+
+    &__counter  { display: none; }
+    &__arrow    { display: none; }
+  }
+}

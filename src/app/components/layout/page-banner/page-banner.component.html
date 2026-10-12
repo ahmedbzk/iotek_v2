@@ -1,0 +1,9 @@
+<div class="page-banner" [style.backgroundImage]="'url(' + bgImage + ')'">
+  <div class="banner-overlay"></div>
+  <div class="container banner-content">
+    <h1 class="banner-title animate-fade-up">{{ title }}</h1>
+    @if (subtitle) {
+      <p class="banner-subtitle animate-fade-up" style="animation-delay: 0.2s;">{{ subtitle }}</p>
+    }
+  </div>
+</div>

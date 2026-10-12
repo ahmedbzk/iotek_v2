@@ -1,0 +1,116 @@
+<header class="site-header" [class.scrolled]="isScrolled">
+  <div class="header-inner container">
+    <!-- Logo -->
+    <a routerLink="/" class="logo" (click)="closeMobileMenu()">
+      <img src="assets/iotek.png" alt="Iotek Teknoloji" class="logo-img" />
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="desktop-nav">
+      @for (item of navItems; track item.label) {
+        @if (item.children) {
+          <div class="nav-item has-dropdown"
+               (mouseenter)="activeDropdown = item.label"
+               (mouseleave)="activeDropdown = null">
+            <button class="nav-link dropdown-trigger">
+              {{ item.label }}
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="dropdown-menu" [class.open]="activeDropdown === item.label">
+              @for (child of item.children; track child.label) {
+                <a [routerLink]="child.route" [fragment]="child.fragment" class="dropdown-item" routerLinkActive="active" (click)="activeDropdown = null">
+                  <svg class="dropdown-layer-icon" aria-hidden="true" viewBox="0 0 512 512" fill="currentColor">
+                    <path d="M12.41 148.02l232.94 105.67c6.8 3.09 14.49 3.09 21.29 0l232.94-105.67c16.55-7.51 16.55-32.52 0-40.03L266.65 2.31a25.607 25.607 0 0 0-21.29 0L12.41 107.98c-16.55 7.51-16.55 32.53 0 40.04zm487.18 88.28l-58.09-26.33-161.64 73.27c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.51 209.97l-58.1 26.33c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 276.3c16.55-7.5 16.55-32.5 0-40zm0 127.8l-57.87-26.23-161.86 73.37c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.29 337.87 12.41 364.1c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40z"/>
+                  </svg>
+                  <span class="dropdown-label">{{ child.label }}</span>
+                </a>
+              }
+            </div>
+          </div>
+        } @else {
+          <a [routerLink]="item.route"
+             class="nav-link"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: item.route === '/'}">
+            {{ item.label }}
+          </a>
+        }
+      }
+    </nav>
+
+    <!-- CTA Button -->
+    <a href="mailto:info@iotek.com.tr" class="btn btn-primary header-cta" (click)="closeMobileMenu()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      İletişime Geç
+    </a>
+
+    <!-- Mobile Hamburger -->
+    <button class="hamburger" [class.active]="isMobileMenuOpen"
+            (click)="toggleMobileMenu()" aria-label="Menüyü Aç/Kapat">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Drawer -->
+  <div class="mobile-menu" [class.open]="isMobileMenuOpen">
+    <div class="mobile-menu-header">
+      <img src="assets/iotek.png" alt="Iotek Teknoloji" class="mobile-logo" />
+      <button class="mobile-close" (click)="closeMobileMenu()" aria-label="Kapat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-nav">
+      @for (item of navItems; track item.label) {
+        @if (item.children) {
+          <div class="mobile-nav-group">
+            <button class="mobile-nav-link mobile-dropdown-trigger"
+                    (click)="toggleDropdown(item.label)">
+              {{ item.label }}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5"
+                   [class.rotate]="activeDropdown === item.label">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="mobile-dropdown" [class.open]="activeDropdown === item.label">
+              @for (child of item.children; track child.label) {
+                <a [routerLink]="child.route" [fragment]="child.fragment" class="mobile-dropdown-item"
+                   (click)="closeMobileMenu()">
+                  <svg class="dropdown-layer-icon" aria-hidden="true" viewBox="0 0 512 512" fill="currentColor">
+                    <path d="M12.41 148.02l232.94 105.67c6.8 3.09 14.49 3.09 21.29 0l232.94-105.67c16.55-7.51 16.55-32.52 0-40.03L266.65 2.31a25.607 25.607 0 0 0-21.29 0L12.41 107.98c-16.55 7.51-16.55 32.53 0 40.04zm487.18 88.28l-58.09-26.33-161.64 73.27c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.51 209.97l-58.1 26.33c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 276.3c16.55-7.5 16.55-32.5 0-40zm0 127.8l-57.87-26.23-161.86 73.37c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.29 337.87 12.41 364.1c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40z"/>
+                  </svg>
+                  <span>{{ child.label }}</span>
+                </a>
+              }
+            </div>
+          </div>
+        } @else {
+          <a [routerLink]="item.route" class="mobile-nav-link"
+             (click)="closeMobileMenu()">{{ item.label }}</a>
+        }
+      }
+      <a href="mailto:info@iotek.com.tr" class="btn btn-primary mobile-cta"
+         (click)="closeMobileMenu()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        İletişime Geç
+      </a>
+    </nav>
+  </div>
+
+  <!-- Mobile Overlay -->
+  @if (isMobileMenuOpen) {
+    <div class="mobile-overlay" (click)="closeMobileMenu()"></div>
+  }
+</header>

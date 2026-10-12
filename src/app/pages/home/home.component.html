@@ -1,0 +1,372 @@
+<!-- ═══════════════════════════════════
+     HERO SLIDER
+═══════════════════════════════════ -->
+<section class="hero-section">
+  <div class="hero-slider">
+
+    @for (slide of slides; track slide.title; let i = $index) {
+      <div class="hero-slide" [class.active]="i === currentSlide">
+        <div class="hero-bg">
+          <img [src]="slide.bgImage" [alt]="slide.title" />
+          <div class="hero-overlay"></div>
+        </div>
+        <div class="container hero-content">
+          <div class="hero-text">
+            <span class="hero-badge">{{ slide.tag }}</span>
+            <h1 class="hero-title">{{ slide.title }}</h1>
+            <p class="hero-subtitle">{{ slide.subtitle }}</p>
+            <p class="hero-desc">{{ slide.description }}</p>
+            <div class="hero-actions">
+              <a [routerLink]="slide.ctaRoute" class="btn btn-primary btn-lg">{{ slide.cta }}</a>
+              <a routerLink="/iletisim" class="btn btn-outline-white btn-lg">İletişime Geç</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Controls -->
+    <button class="slider-btn slider-prev" (click)="prevSlide()" aria-label="Önceki">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button class="slider-btn slider-next" (click)="nextSlide()" aria-label="Sonraki">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+
+    <!-- Dots -->
+    <div class="slider-dots">
+      @for (slide of slides; track slide.title; let i = $index) {
+        <button class="dot" [class.active]="i === currentSlide"
+                (click)="goToSlide(i)" [attr.aria-label]="'Slayt ' + (i+1)"></button>
+      }
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     HAKKIMIZDA
+═══════════════════════════════════ -->
+<section class="about-cta section">
+  <div class="container">
+    <div class="about-cta-inner">
+      <div class="about-text">
+        <span class="badge mb-2">Hakkımızda</span>
+        <h2>Güvenli Altyapılar,<br>Akıllı Çözümler</h2>
+        <p>
+          Iotek Teknoloji olarak 10 yılı aşkın deneyimimizle Türkiye'nin önde gelen
+          teknoloji çözüm ortağıyız. Haberleşme sistemlerinden güvenlik altyapılarına,
+          maden ekipmanlarından elektrikli araçlara kadar geniş bir yelpazede hizmet sunuyoruz.
+        </p>
+        <p>
+          Her projeyi müşterilerimizin ihtiyaçlarını merkeze alarak tasarlıyor;
+          mühendislik gücümüzü ve teknoloji birikimimizi en üst düzeyde kullanıyoruz.
+        </p>
+        <a routerLink="/kurumsal/hakkimizda" class="btn btn-primary btn-lg">Hakkımızda Daha Fazla</a>
+      </div>
+      <div class="about-visual">
+        <div class="visual-card">
+          <div class="visual-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Küresel Standartlar</h4>
+            <p>Uluslararası standartlara uygun çözümler</p>
+          </div>
+        </div>
+        <div class="visual-card">
+          <div class="visual-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Güvenilir Altyapı</h4>
+            <p>%99.9 uptime garantili çözümler</p>
+          </div>
+        </div>
+        <div class="visual-card">
+          <div class="visual-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Uzman Ekip</h4>
+            <p>Sertifikalı mühendisler ve teknisyenler</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     ÇÖZÜMLERİMİZ
+═══════════════════════════════════ -->
+<section class="services-strip section">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>Çözümlerimiz</h2>
+      <div class="divider"></div>
+      <p class="section-desc">
+        Geleceğin teknolojileriyle donatılmış, güvenilir ve yenilikçi çözümlerimizi keşfedin.
+      </p>
+    </div>
+
+    <!-- Slider -->
+    <div class="services-slider-wrapper">
+      <div class="services-track" [style.transform]="'translateX(' + (-activeServiceIndex * 340) + 'px)'">
+        @for (service of services; track service.title; let i = $index) {
+          <a [routerLink]="service.route" class="service-card" [class.active]="activeServiceIndex === i" (click)="goToServiceSlide(i); $event.preventDefault()">
+            <img [src]="service.image" [alt]="service.title" class="service-bg">
+            <div class="service-overlay"></div>
+            <div class="service-content">
+              <span class="service-icon">
+                @switch (service.icon) {
+                  @case ('camera') {
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                    </svg>
+                  }
+                  @case ('sound') {
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                    </svg>
+                  }
+                  @case ('comm') {
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.84a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  }
+                  @case ('mining') {
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                  }
+                  @case ('power') {
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                  }
+                  @case ('ev') {
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
+                    </svg>
+                  }
+                  @case ('control') {
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                      <line x1="3" y1="9" x2="21" y2="9"/>
+                      <line x1="9" y1="21" x2="9" y2="9"/>
+                    </svg>
+                  }
+                }
+              </span>
+              <div class="service-info">
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.desc }}</p>
+              </div>
+            </div>
+          </a>
+        }
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <div class="slider-nav">
+      <button class="slider-nav-btn" (click)="prevServiceSlide()" aria-label="Önceki">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="slider-dots-row">
+        @for (service of services; track $index) {
+          <button class="slider-dot" [class.active]="activeServiceIndex === $index" (click)="goToServiceSlide($index)"></button>
+        }
+      </div>
+      <button class="slider-nav-btn" (click)="nextServiceSlide()" aria-label="Sonraki">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     MARKALARIMIZ
+═══════════════════════════════════ -->
+<section class="brands-section section">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>Markalarımız</h2>
+      <div class="divider"></div>
+      <p class="section-desc">
+        Iotek Teknoloji çatısı altında faaliyet gösteren grup şirketlerimiz, farklı
+        uzmanlık alanlarında entegre hizmetler sunar. Her biri kendi alanında yüksek
+        teknoloji, mühendislik gücü ve çözüm odaklı yaklaşımıyla öne çıkar.
+      </p>
+    </div>
+
+    <div class="brands-grid">
+      @for (brand of brands; track brand.name) {
+        <a [href]="brand.url" class="brand-card">
+          <div class="brand-logo-wrap">
+            <img [src]="brand.logo" [alt]="brand.name" class="brand-logo-img" />
+          </div>
+          <p class="brand-desc">{{ brand.description }}</p>
+          <span class="brand-link">İncele →</span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     STATS
+═══════════════════════════════════ -->
+<section class="stats-section section--sm section--dark">
+  <div class="container">
+    <div class="stats-grid">
+      @for (stat of stats; track stat.label) {
+        <div class="stat-item">
+          <span class="stat-value">{{ stat.value }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+     İLETİŞİM FORMU
+═══════════════════════════════════ -->
+<section class="home-contact section">
+  <div class="container">
+    <div class="home-contact-inner">
+
+      <!-- Sol: Metin & bilgi -->
+      <div class="home-contact-text">
+        <span class="badge mb-2">Bize Ulaşın</span>
+        <h2>Projeniz İçin<br>Teklif Alın</h2>
+        <p>Uzman mühendislik ekibimiz; saha keşfi, ihtiyaç analizi ve anahtar teslim uygulama süreçlerinde bir telefon uzağınızda.</p>
+
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="ci-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.39 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.84a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ci-label">Telefon</span>
+              <a href="tel:08502034060" class="ci-value">0 (850) 203 4060</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ci-label">E-posta</span>
+              <a href="mailto:info@iotek.com.tr" class="ci-value">info&#64;iotek.com.tr</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ci-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <span class="ci-label">Adres</span>
+              <span class="ci-value">Giyimkent, Esenler / İstanbul</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sağ: Form -->
+      <div class="home-contact-form-wrap">
+        <form class="home-contact-form" #contactFormRef="ngForm" (ngSubmit)="onContactSubmit(contactFormRef)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="hc-name">Ad Soyad *</label>
+              <input id="hc-name" type="text" name="name" placeholder="Adınız Soyadınız" required [(ngModel)]="contactForm.name" #name="ngModel">
+              @if (name.invalid && (name.touched || contactFormRef.submitted)) {
+                <span class="error-text">Lütfen adınızı giriniz.</span>
+              }
+            </div>
+            <div class="form-group">
+              <label for="hc-email">E-posta *</label>
+              <input id="hc-email" type="email" name="email" placeholder="email@sirket.com" required email [(ngModel)]="contactForm.email" #email="ngModel">
+              @if (email.invalid && (email.touched || contactFormRef.submitted)) {
+                <span class="error-text">Lütfen geçerli bir e-posta adresi giriniz.</span>
+              }
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="hc-subject">Konu *</label>
+            <select id="hc-subject" name="subject" required [(ngModel)]="contactForm.subject" #subject="ngModel">
+              <option value="">Çözüm seçin...</option>
+              <option>Servis</option>
+              <option>Teknik Destek</option>
+              <option>Pazarlama</option>
+              <option>Satış</option>
+              <option>Muhasebe</option>
+              <option>Kamera Sistemleri</option>
+              <option>Ses Sistemleri</option>
+              <option>Haberleşme Sistemleri</option>
+              <option>Maden Ekipmanları</option>
+              <option>Güç Elektroniği</option>
+              <option>Elektrikli Arazi Aracı</option>
+              <option>Kontrol Merkezi Çözümleri</option>
+              <option>Genel Bilgi</option>
+            </select>
+            @if (subject.invalid && (subject.touched || contactFormRef.submitted)) {
+              <span class="error-text">Lütfen bir konu seçiniz.</span>
+            }
+          </div>
+          <div class="form-group">
+            <label for="hc-file">Dosya Ekleyin (PDF, Opsiyonel)</label>
+            <input id="hc-file" type="file" name="file" accept=".pdf" class="file-input" (change)="contactForm.file = $any($event.target).files[0]">
+          </div>
+          <div class="form-group">
+            <label for="hc-message">Mesaj *</label>
+            <textarea id="hc-message" name="message" rows="4" placeholder="Projenizi kısaca anlatın..." required [(ngModel)]="contactForm.message" #message="ngModel"></textarea>
+            @if (message.invalid && (message.touched || contactFormRef.submitted)) {
+              <span class="error-text">Lütfen mesajınızı giriniz.</span>
+            }
+          </div>
+          @if (contactSent) {
+            <div class="form-success">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Mesajınız alındı! En kısa sürede dönüş yapacağız.</span>
+            </div>
+          }
+          <button type="submit" class="btn btn-primary btn-lg w-full">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span>Mesaj Gönder</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,67 @@
+<app-page-banner
+  title="Hizmetlerimiz"
+  subtitle="Geleceği Şekillendiren Mühendislik Adımları"
+  bgImage="/assets/banner.jpg">
+</app-page-banner>
+
+<section class="process-section section bg-accent">
+  <div class="container">
+    <div class="process-steps">
+      @for (hizmet of hizmetler; track hizmet.id; let i = $index) {
+        <div class="process-step" [class.reverse]="i % 2 !== 0" [id]="hizmet.id">
+          <div class="process-content animate-fade-up">
+            <span class="step-number" [style.color]="hizmet.color">0{{ i + 1 }}</span>
+            <h3 class="h3">{{ hizmet.title }}</h3>
+            <h5 class="h5 mb-3" style="color: var(--color-primary);">{{ hizmet.subtitle }}</h5>
+            <p class="text-muted">{{ hizmet.desc }}</p>
+          </div>
+          <div class="process-visual animate-fade-up" [style.animationDelay]="'0.2s'">
+            <div class="visual-wrapper">
+              <div class="visual-blob-bg" [style.backgroundColor]="hizmet.color + '30'"></div>
+              <img [src]="hizmet.image" [alt]="hizmet.title" class="process-image">
+              <div class="visual-icon-overlay" [style.backgroundColor]="hizmet.color">
+                @switch (hizmet.icon) {
+                  @case ('search') {
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5">
+                      <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                  }
+                  @case ('edit') {
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5">
+                      <path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                  }
+                  @case ('settings') {
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                  }
+                  @case ('power') {
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5">
+                      <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line>
+                    </svg>
+                  }
+                  @case ('tool') {
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5">
+                      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                    </svg>
+                  }
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section section" style="background-color: var(--color-primary); color: #fff; text-align: center;">
+  <div class="container">
+    <h2 class="h2 mb-4" style="color: #fff;">Projeleriniz İçin Hazırız</h2>
+    <p class="mb-5" style="font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Size özel çözümler üretmek ve sorularınızı yanıtlamak için uzman mühendis ekibimizle buradayız. Bizimle hemen iletişime geçin.</p>
+    <a routerLink="/iletisim" class="btn" style="background: #fff; color: var(--color-primary); padding: 1rem 2.5rem; font-weight: 600; font-size: 1.1rem;">Bize Ulaşın</a>
+  </div>
+</section>

@@ -1,0 +1,102 @@
+<section class="hero-slider"
+         (mouseenter)="onMouseEnter()"
+         (mouseleave)="onMouseLeave()"
+         (touchstart)="onTouchStart($event)"
+         (touchend)="onTouchEnd($event)"
+         role="region"
+         aria-label="Ana sayfa slayt gösterisi">
+
+  <!-- ── Slides ── -->
+  <div class="hero-slider__track">
+    @for (slide of slides; track slide.id; let i = $index) {
+      <div
+        class="hero-slider__slide"
+        [class.is-active]="i === activeIndex()"
+        [attr.aria-hidden]="i !== activeIndex()"
+        role="group"
+        [attr.aria-roledescription]="'Slayt ' + (i + 1) + ' / ' + slides.length">
+
+        <!-- Background Image -->
+        <div class="hero-slider__bg"
+             [style.background-image]="'url(' + slide.image + ')'">
+        </div>
+
+        <!-- Overlay -->
+        <div class="hero-slider__overlay"></div>
+
+        <!-- Content -->
+        <div class="container hero-slider__content">
+          <div class="hero-slider__inner">
+            <span class="hero-slider__eyebrow animate-el">
+              {{ slide.subheading }}
+            </span>
+            <h1 class="hero-slider__title animate-el">
+              {{ slide.heading }}
+            </h1>
+            <p class="hero-slider__desc animate-el">
+              {{ slide.description }}
+            </p>
+            <div class="hero-slider__actions animate-el">
+              <a [routerLink]="slide.ctaRoute" class="btn btn-primary btn-lg">
+                {{ slide.ctaLabel }}
+                <i class="fas fa-arrow-right"></i>
+              </a>
+              <a routerLink="/iletisim" class="btn btn-outline-white btn-lg">
+                Bize Ulaşın
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- ── Progress Bar ── -->
+  <div class="hero-slider__progress-bar">
+    <div class="hero-slider__progress-fill"
+         [style.width.%]="progress()">
+    </div>
+  </div>
+
+  <!-- ── Arrow Navigation ── -->
+  <button class="hero-slider__arrow hero-slider__arrow--prev"
+          (click)="prev()"
+          aria-label="Önceki slayt">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+
+  <button class="hero-slider__arrow hero-slider__arrow--next"
+          (click)="next()"
+          aria-label="Sonraki slayt">
+    <i class="fas fa-chevron-right"></i>
+  </button>
+
+  <!-- ── Dot Indicators ── -->
+  <div class="hero-slider__dots" role="tablist" aria-label="Slaytlar">
+    @for (slide of slides; track slide.id; let i = $index) {
+      <button
+        class="hero-slider__dot"
+        [class.is-active]="i === activeIndex()"
+        (click)="goTo(i)"
+        role="tab"
+        [attr.aria-selected]="i === activeIndex()"
+        [attr.aria-label]="'Slayt ' + (i + 1) + ': ' + slide.heading">
+        <span class="hero-slider__dot-inner"></span>
+      </button>
+    }
+  </div>
+
+  <!-- ── Slide Counter ── -->
+  <div class="hero-slider__counter" aria-hidden="true">
+    <span class="hero-slider__counter-current">{{ (activeIndex() + 1).toString().padStart(2, '0') }}</span>
+    <span class="hero-slider__counter-sep">/</span>
+    <span class="hero-slider__counter-total">{{ slides.length.toString().padStart(2, '0') }}</span>
+  </div>
+
+  <!-- ── Scroll Indicator ── -->
+  <div class="hero-slider__scroll-hint" aria-hidden="true">
+    <span class="hero-slider__scroll-line"></span>
+    <span class="hero-slider__scroll-text">Keşfet</span>
+  </div>
+
+</section>
